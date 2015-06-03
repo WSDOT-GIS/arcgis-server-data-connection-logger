@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+UnitTest/UnitTest1.cs
 
 # Build results
 [Dd]ebug/
