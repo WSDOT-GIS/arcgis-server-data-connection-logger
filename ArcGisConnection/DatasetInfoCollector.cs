@@ -23,24 +23,14 @@ namespace ArcGisConnection
         /// <example>\\myserver\sharename$\arcgisserver\directories\arcgissystem\arcgisinput</example>
         /// </param>
         /// <returns>Returns an enumeration of <see cref="FileInfo"/> objects.</returns>
-        private static IEnumerable<FileInfo> GetMsds(this DirectoryInfo rootDir)
+        public static ServerInfo GetServerInfo(this DirectoryInfo rootDir)
         {
-            var msds = rootDir.EnumerateFiles("*.msd", SearchOption.AllDirectories);
-            return msds;
-        }
-
-        /// <summary>
-        /// Enumerates through Map Service Definition (MSD) files' connection information.
-        /// </summary>
-        /// <param name="files">MSD files</param>
-        /// <returns>Returns an enumeration of <see cref="DataConnectionInfo"/> objects.</returns>
-        public static IEnumerable<IEnumerable<DataConnectionInfo>> GetDatasetInfos(this IEnumerable<FileInfo> files)
-        {
-            foreach (var msd in files)
+            return new ServerInfo
             {
-                var datasetInfos = msd.GetDatasetInfo();
-                yield return datasetInfos;
-            }
+                Directory = rootDir.FullName,
+                MsdInfos = from msd in rootDir.EnumerateFiles("*.msd", SearchOption.AllDirectories)
+                           select new MsdInfo { Path = msd.Name, Connections = msd.GetDatasetInfo() }
+            };
         }
 
         /// <summary>
@@ -52,26 +42,14 @@ namespace ArcGisConnection
         /// <example>\\myserver\sharename$\arcgisserver\directories\arcgissystem\arcgisinput</example>
         /// </param>
         /// <returns>Returns an enumeration of <see cref="DataConnectionInfo"/> objects.</returns>
-        public static IEnumerable<IEnumerable<DataConnectionInfo>> GetDatasetInfos(this DirectoryInfo rootDir)
-        {
-            return GetMsds(rootDir).GetDatasetInfos();
-        }
-
-        /// Enumerates through Map Service Definition (MSD) files' connection information.
-        /// </summary>
-        /// <param name="rootDir">
-        /// The directory containing MSD files. 
-        /// <example>C:\arcgisserver\directories\arcgissystem\arcgisinput</example>
-        /// <example>\\myserver\sharename$\arcgisserver\directories\arcgissystem\arcgisinput</example>
-        /// </param>
-        /// <returns>Returns an enumeration of <see cref="DataConnectionInfo"/> objects.</returns>
-        public static IEnumerable<IEnumerable<IEnumerable<DataConnectionInfo>>> GetDatasetInfos(this IEnumerable<DirectoryInfo> rootDirs)
+        public static IEnumerable<ServerInfo> GetServerInfos(this IEnumerable<DirectoryInfo> rootDirs)
         {
             ////var output = rootDirs.Select(dir => new { key = dir.FullName, value = dir.GetMsds().GetDatasetInfos() }).ToDictionary;
 
             foreach (var dir in rootDirs)
             {
-                yield return dir.GetMsds().GetDatasetInfos();
+                //yield return dir.GetMsds().GetDatasetInfos();
+                yield return dir.GetServerInfo();
             }
         }
 
@@ -86,35 +64,72 @@ namespace ArcGisConnection
             textWriter.WriteLine("===========================================");
             textWriter.WriteLine();
 
-            foreach (var dir in dirs)
+            var serverInfos = dirs.GetServerInfos();
+
+            foreach (var server in serverInfos)
             {
 
-                textWriter.WriteLine(dir.FullName);
+                textWriter.WriteLine(server.Directory);
                 textWriter.WriteLine("--------------------------------");
                 textWriter.WriteLine();
 
-                var dsGroups = from d in dir.GetDatasetInfos().SelectMany(d => d)
-                               where !string.IsNullOrWhiteSpace(d.ConnectionString)
-                               group d by d.ConnectionString;
+                ////var dsGroups = from d in dir.GetDatasetInfos().SelectMany(d => d)
+                ////               where !string.IsNullOrWhiteSpace(d.ConnectionString)
+                ////               group d by d.ConnectionString;
 
-                foreach (var g in dsGroups)
+                ////foreach (var g in dsGroups)
+                ////{
+                ////    textWriter.WriteLine("### `{0}` ###", g.Key);
+                ////    textWriter.WriteLine();
+
+                ////    var dict = g.First().GetConnectionStringParts();
+                ////    foreach (var kvp in dict)
+                ////    {
+                ////        textWriter.WriteLine("* `{0}`:\t`{1}`", kvp.Key, kvp.Value);
+                ////    }
+
+                ////    textWriter.WriteLine("#### Tables ####\n");
+
+                ////    foreach (var dataSet in g.Select(ds => ds.DataSet).OrderBy(ds => ds).Distinct())
+                ////    {
+                ////        textWriter.WriteLine("* `{0}`", dataSet);
+                ////    }
+                ////    textWriter.WriteLine();
+                ////}
+
+                foreach (var msd in server.MsdInfos)
                 {
-                    textWriter.WriteLine("### `{0}` ###", g.Key);
-                    textWriter.WriteLine();
+                    textWriter.WriteLine("### `{0}` ###", Path.GetFileName(msd.Path));
 
-                    var dict = g.First().GetConnectionStringParts();
-                    foreach (var kvp in dict)
+                    var groups = from c in msd.Connections
+                                         where c.WorkspaceFactory == "SDE"
+                                         group c by c.ConnectionString;
+
+
+                    textWriter.WriteLine("#### SDE Connections ####");
+
+
+                    foreach (var g in groups)
                     {
-                        textWriter.WriteLine("* `{0}`:\t`{1}`", kvp.Key, kvp.Value);
-                    }
+                        textWriter.WriteLine("##### Connection String #####");
 
-                    textWriter.WriteLine("#### Tables ####\n");
+                        var csDict = g.First().GetConnectionStringParts();
 
-                    foreach (var dataSet in g.Select(ds => ds.DataSet).OrderBy(ds => ds).Distinct())
-                    {
-                        textWriter.WriteLine("* `{0}`", dataSet);
+                        foreach (var kvp in csDict)
+                        {
+                            textWriter.WriteLine("* `{0}`:\t`{1}`", kvp.Key, kvp.Value);
+                        }
+
+                        textWriter.WriteLine("##### Datasets #####");
+
+                        var dataSets = (from c in g
+                                           select c.DataSet).Distinct();
+
+                        foreach (var ds in dataSets)
+                        {
+                            textWriter.WriteLine("* {0}", ds);
+                        }
                     }
-                    textWriter.WriteLine();
                 }
             }
         }
@@ -133,7 +148,7 @@ namespace ArcGisConnection
                 foreach (var xml in xmls)
                 {
                     DataConnectionInfo dcInfo = xml.GetDataConnectionInfo(file);
-                    if (dcInfo != null)
+                    if (dcInfo != null && !string.IsNullOrWhiteSpace(dcInfo.DataSet))
                     {
                         yield return dcInfo;
                     }
@@ -153,7 +168,7 @@ namespace ArcGisConnection
             using (var xReader = XmlReader.Create(xStream))
             {
                 var xDoc = XDocument.Load(xReader);
-                dcInfo = new DataConnectionInfo(xDoc, fileInfo.FullName);
+                dcInfo = new DataConnectionInfo(xDoc);
             }
             return dcInfo;
         }

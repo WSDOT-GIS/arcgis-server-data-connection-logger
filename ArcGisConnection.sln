@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		UNLICENSE = UNLICENSE
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGisServerDataConnectionsWebsite", "ArcGisServerDataConnectionsWebsite\ArcGisServerDataConnectionsWebsite.csproj", "{4C8FF5FF-2425-4FF5-95CB-E40401D27754}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "ArcGisServerDataConnectionsWebsite\Website.csproj", "{4C8FF5FF-2425-4FF5-95CB-E40401D27754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

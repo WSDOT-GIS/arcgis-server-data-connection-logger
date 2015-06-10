@@ -17,7 +17,6 @@ namespace DataContracts
         public string DataSet { get; set; }
         public string WorkspaceFactory { get; set; }
         public string LayerName { get; set; }
-        public string Msd { get; set; }
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -31,9 +30,8 @@ namespace DataContracts
         /// Creates a new instance of this class using an XML Document.
         /// </summary>
         /// <param name="xDoc">Layer XML document from within an Map Service Definition (MSD) archive.</param>
-        public DataConnectionInfo(XContainer xDoc, string serviceName)
+        public DataConnectionInfo(XContainer xDoc)
         {
-            this.Msd = serviceName;
             var dataConnection = xDoc.Descendants("DataConnection").FirstOrDefault();
             var nameElement = xDoc.Descendants("Name").FirstOrDefault();
             this.LayerName = nameElement != null ? nameElement.Value : null;

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ArcGisServerDataConnectionsWebsite")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("WSDOT")]
 [assembly: AssemblyProduct("ArcGisServerDataConnectionsWebsite")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCopyright("Unlicense")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

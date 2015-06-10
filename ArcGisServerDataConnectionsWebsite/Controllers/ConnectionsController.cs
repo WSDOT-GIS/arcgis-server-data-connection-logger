@@ -16,21 +16,15 @@ namespace ArcGisServerDataConnectionsWebsite.Controllers
     {
         [Route("api/connections")]
         [CacheOutput(ServerTimeSpan=24*60*60)]
-        public Dictionary<string,Dictionary<string,IEnumerable<DataContracts.DataConnectionInfo>>> GetConnections()
+        public IEnumerable<ServerInfo> GetConnections()
         {
             var dirListString = ConfigurationManager.AppSettings["directories"];
             var dirs = from s in dirListString.Split(';') 
                        select new DirectoryInfo(s);
 
-            ////var datasetInfos = dirs.GetDatasetInfos();
-            ////return datasetInfos.SelectMany(s => s);
-
-            var output = (from d in dirs
-                         select new { key = d.FullName, value = d.GetDatasetInfos().Where(k => k.Count() > 0).ToDictionary(k => k.First().Msd, v => v) }).ToDictionary(k => k.key, v => v.value);
+            var output = dirs.GetServerInfos();
 
             return output;
-
-            //ArcGisConnection.DatasetInfoCollector.GetDatasetInfos()
         }
     }
 }
