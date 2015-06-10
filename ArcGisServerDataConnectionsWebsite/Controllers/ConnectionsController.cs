@@ -8,12 +8,14 @@ using System.Net.Http;
 using System.Web.Http;
 using ArcGisConnection;
 using DataContracts;
+using WebApi.OutputCache.V2;
 
 namespace ArcGisServerDataConnectionsWebsite.Controllers
 {
     public class ConnectionsController : ApiController
     {
         [Route("api/connections")]
+        [CacheOutput(ServerTimeSpan=24*60*60)]
         public Dictionary<string,Dictionary<string,IEnumerable<DataContracts.DataConnectionInfo>>> GetConnections()
         {
             var dirListString = ConfigurationManager.AppSettings["directories"];
