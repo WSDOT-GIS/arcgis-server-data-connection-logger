@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace DataContracts
@@ -15,6 +16,8 @@ namespace DataContracts
         public string ConnectionString { get; set; }
         public string DataSet { get; set; }
         public string WorkspaceFactory { get; set; }
+        public string LayerName { get; set; }
+        public string Msd { get; set; }
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -28,18 +31,24 @@ namespace DataContracts
         /// Creates a new instance of this class using an XML Document.
         /// </summary>
         /// <param name="xDoc">Layer XML document from within an Map Service Definition (MSD) archive.</param>
-        public DataConnectionInfo(XContainer xDoc)
+        public DataConnectionInfo(XContainer xDoc, string serviceName)
         {
+            this.Msd = serviceName;
             var dataConnection = xDoc.Descendants("DataConnection").FirstOrDefault();
+            var nameElement = xDoc.Descendants("Name").FirstOrDefault();
+            this.LayerName = nameElement != null ? nameElement.Value : null;
+            var passwordRe = new Regex(@"(\w?PASSWORD)=[^=;]+", RegexOptions.IgnoreCase);
+            const string replacement = "$1=[Omitted]";
             if (dataConnection != null)
             {
                 var csElement = dataConnection.Element("WorkspaceConnectionString");
                 var dsElement = dataConnection.Element("Dataset");
                 var wsElement = dataConnection.Element("WorkspaceFactory");
 
-                ConnectionString = csElement != null ? csElement.Value : null;
-                DataSet = dsElement != null ? dsElement.Value : null;
-                WorkspaceFactory = wsElement != null ? wsElement.Value : null;
+                this.ConnectionString = csElement != null ? passwordRe.Replace(csElement.Value, replacement) : null;
+                //this.ConnectionString = csElement != null ? csElement.Value : null;
+                this.DataSet = dsElement != null ? dsElement.Value : null;
+                this.WorkspaceFactory = wsElement != null ? wsElement.Value : null;
             }
         }
 
@@ -55,11 +64,6 @@ namespace DataContracts
             }
 
             return output;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0}\t{1}\t{2}", WorkspaceFactory, ConnectionString != null ? ConnectionString : null, DataSet);
         }
     }
 }
