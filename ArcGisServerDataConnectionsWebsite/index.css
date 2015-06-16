@@ -1,0 +1,22 @@
+﻿table {
+    border: 1px solid black;
+    margin-top: 1em;
+}
+
+td {
+    border: 1px solid black;
+}
+
+tbody:empty:after {
+    content: 'No data';
+    font-style: italic;
+}
+
+section > :only-child:after {
+    content: ' (No MSDs found)';
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}

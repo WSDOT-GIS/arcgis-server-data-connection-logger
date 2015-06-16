@@ -5,27 +5,21 @@
 		var dt, dd;
 
 		for (var k in dict) {
-			dt = document.createElement("dt");
-			dt.textContent = k;
-			dd = document.createElement("dd");
-			dd.textContent = dict[k];
-			dl.appendChild(dt);
-			dl.appendChild(dd);
+			if (dict.hasOwnProperty(k)) {
+				dt = document.createElement("dt");
+				dt.textContent = k;
+				dd = document.createElement("dd");
+				dd.textContent = dict[k];
+				dl.appendChild(dt);
+				dl.appendChild(dd);
+			}
 		}
 
 		return dl;
 	}
 
 	function Connection(data) {
-		var dict;
-		if (data.ConnectionString) {
-			dict = {};
-			data.ConnectionString.split(";").forEach(function (s) {
-				var kvp = s.split("=");
-				dict[kvp[0]] = kvp[1];
-			})
-		}
-		this.connectionString = dict || null;
+		this.connectionString = data.ConnectionString || null;
 		this.dataSet = data.DataSet || null;
 		this.layerName = data.LayerName || null;
 		this.workspaceFactory = data.WorkspaceFactory || null;
@@ -42,7 +36,7 @@
 		cell = tr.insertCell(-1);
 		cell.textContent = this.layerName;
 		return tr;
-	}
+	};
 
 	function MsdInfo(data) {
 		this.path = data.Path;
@@ -53,6 +47,8 @@
 
 	MsdInfo.prototype.createTable = function () {
 		var table = document.createElement("table");
+		var thead = table.createTHead();
+		var tbody = table.createTBody();
 
 		function createHeaderRow() {
 			var row = document.createElement("tr");
@@ -77,11 +73,11 @@
 			return row;
 		}
 
-		table.appendChild(createHeaderRow());
+		thead.appendChild(createHeaderRow());
 
 		this.connections.forEach(function (c) {
 			var row = c.toTR();
-			table.appendChild(row);
+			tbody.appendChild(row);
 		});
 
 		return table;
@@ -94,14 +90,14 @@
 		});
 	}
 
-	var reviver = function(k, v) {
+	var reviver = function (k, v) {
 		if (v && v.hasOwnProperty("Directory")) {
 			return new ServerInfo(v);
 		}
 		else {
 			return v;
 		}
-	}
+	};
 
 	var request = new XMLHttpRequest();
 	request.open("get", "api/connections");

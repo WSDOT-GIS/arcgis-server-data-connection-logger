@@ -7,25 +7,34 @@ using System.Threading.Tasks;
 
 namespace DataContracts
 {
+    [DataContract]
     public class ConnectionString
     {
-
+        [DataMember(IsRequired=false, EmitDefaultValue=false)]
         public string Server { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string Instance { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string Database { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string Version { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string AuthenticationMode { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string DBClient { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string ServerInstance { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string User { get; set; }
 
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string DBConnectionProperties { get; set; }
 
         private string _originalString;
