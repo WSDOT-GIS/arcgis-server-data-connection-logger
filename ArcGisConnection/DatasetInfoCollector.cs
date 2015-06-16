@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -141,10 +142,11 @@ namespace ArcGisConnection
         /// <returns>Returns an enumeration of <see cref="DataConnectionInfo"/> objects.</returns>
         public static IEnumerable<DataConnectionInfo> GetDatasetInfo(this FileInfo file)
         {
+            var inFolderRe = new Regex(@"^[^\/]+\/[^\/]+\.xml$");
             using (var fileStream = file.OpenRead())
             using (var zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Read))
             {
-                var xmls = zipArchive.Entries.Where(f => f.FullName.StartsWith("layers"));
+                var xmls = zipArchive.Entries.Where(f => inFolderRe.IsMatch(f.FullName));
                 foreach (var xml in xmls)
                 {
                     DataConnectionInfo dcInfo = xml.GetDataConnectionInfo(file);
