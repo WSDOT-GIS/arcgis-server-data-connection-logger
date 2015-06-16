@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionString.cs" />
     <Compile Include="DataConnectionInfo.cs" />
     <Compile Include="MsdInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

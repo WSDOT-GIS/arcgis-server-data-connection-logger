@@ -113,7 +113,7 @@ namespace ArcGisConnection
                     {
                         textWriter.WriteLine("##### Connection String #####");
 
-                        var csDict = g.First().GetConnectionStringParts();
+                        var csDict = ConnectionString.GetConnectionStringParts(g.First().ConnectionString.ToString());
 
                         foreach (var kvp in csDict)
                         {
