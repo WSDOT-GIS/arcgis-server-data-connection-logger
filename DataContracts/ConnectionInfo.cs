@@ -49,7 +49,20 @@ namespace DataContracts
 
         public int CompareTo(object obj)
         {
-            throw new NotImplementedException();
+            if (typeof(ConnectionInfo).IsInstanceOfType(obj))
+            {
+                var other = (ConnectionInfo)obj;
+                return this.CompareTo(other);
+            }
+            else if (typeof(IComparable).IsInstanceOfType(obj))
+            {
+                var other = (IComparable)obj;
+                return this.CompareTo(other);
+            }
+            else
+            {
+                throw new NotImplementedException("The other object does not implement IComparable.");
+            }
         }
 
         public int CompareTo(ConnectionInfo other)

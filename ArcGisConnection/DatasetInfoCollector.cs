@@ -15,6 +15,11 @@ namespace ArcGisConnection
     /// </summary>
     public static class DatasetInfoCollector
     {
+        /// <summary>
+        /// Examines all MSDs in a directory and provides output in a flattened format.
+        /// </summary>
+        /// <param name="msdDirectories">One or more directories containing MSD files.</param>
+        /// <returns>Returns <see cref="FlattenedItem"/> objects.</returns>
         public static IEnumerable<FlattenedItem> GetFlattenedOutput(this IEnumerable<DirectoryInfo> msdDirectories)
         {
             foreach (DirectoryInfo dir in msdDirectories)
