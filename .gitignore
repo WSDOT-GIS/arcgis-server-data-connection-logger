@@ -232,3 +232,4 @@ $RECYCLE.BIN/
 *.lnk
 Web.config
 Web.*.config
+GetArcGisConnections/App.config
