@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataContracts
 {
@@ -98,12 +96,27 @@ namespace DataContracts
 
         public static bool operator ==(ConnectionString csA, ConnectionString csB)
         {
-            return csA.Equals(csB);
+            object 
+                objA = (object)csA, 
+                objB = (object)csB;
+
+            if (objA == null && objB == null)
+            {
+                return true;
+            }
+            else if (objA != null && objB != null)
+            {
+                return csA.Equals(csB);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static bool operator !=(ConnectionString csA, ConnectionString csB)
         {
-            return !csA.Equals(csB);
+            return !(csA == csB);
         }
 
         public override string ToString()

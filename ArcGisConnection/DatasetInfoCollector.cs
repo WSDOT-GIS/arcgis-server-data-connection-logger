@@ -15,6 +15,42 @@ namespace ArcGisConnection
     /// </summary>
     public static class DatasetInfoCollector
     {
+        public static IEnumerable<FlattenedItem> GetFlattenedOutput(this IEnumerable<DirectoryInfo> msdDirectories)
+        {
+            foreach (DirectoryInfo dir in msdDirectories)
+            {
+                ServerInfo serverInfo = dir.GetServerInfo();
+                foreach (MsdInfo msdInfo in serverInfo.MsdInfos)
+                {
+                    foreach (DataConnectionInfo connectionInfo in msdInfo.Connections)
+                    {
+                        var outItem = new FlattenedItem
+                        {
+                            DataSet = connectionInfo.DataSet,
+                            Directory = serverInfo.Directory,
+                            LayerName = connectionInfo.LayerName,
+                            MsdPath = msdInfo.Path,
+                            WorkspaceFactory = connectionInfo.ConnectionInfo.WorkspaceFactory
+                        };
+                        if (connectionInfo.ConnectionInfo != null && connectionInfo.ConnectionInfo.ConnectionString != null)
+                        {
+                            var cString = connectionInfo.ConnectionInfo.ConnectionString;
+                            outItem.ConnectionStringAuthenticationMode = cString.AuthenticationMode;
+                            outItem.ConnectionStringDatabase = cString.Database;
+                            outItem.ConnectionStringDBClient = cString.DBClient;
+                            outItem.ConnectionStringDBConnectionProperties = cString.DBConnectionProperties;
+                            outItem.ConnectionStringInstance = cString.Instance;
+                            outItem.ConnectionStringServer = cString.Server;
+                            outItem.ConnectionStringServerInstance = cString.ServerInstance;
+                            outItem.ConnectionStringUser = cString.User;
+                            outItem.ConnectionStringVersion = cString.Version;
+                        }
+                        yield return outItem;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Enumerates through Map Service Definition (MSD) files.
         /// </summary>
@@ -73,30 +109,6 @@ namespace ArcGisConnection
                 textWriter.WriteLine(server.Directory);
                 textWriter.WriteLine("--------------------------------");
                 textWriter.WriteLine();
-
-                ////var dsGroups = from d in dir.GetDatasetInfos().SelectMany(d => d)
-                ////               where !string.IsNullOrWhiteSpace(d.ConnectionString)
-                ////               group d by d.ConnectionString;
-
-                ////foreach (var g in dsGroups)
-                ////{
-                ////    textWriter.WriteLine("### `{0}` ###", g.Key);
-                ////    textWriter.WriteLine();
-
-                ////    var dict = g.First().GetConnectionStringParts();
-                ////    foreach (var kvp in dict)
-                ////    {
-                ////        textWriter.WriteLine("* `{0}`:\t`{1}`", kvp.Key, kvp.Value);
-                ////    }
-
-                ////    textWriter.WriteLine("#### Tables ####\n");
-
-                ////    foreach (var dataSet in g.Select(ds => ds.DataSet).OrderBy(ds => ds).Distinct())
-                ////    {
-                ////        textWriter.WriteLine("* `{0}`", dataSet);
-                ////    }
-                ////    textWriter.WriteLine();
-                ////}
 
                 foreach (var msd in server.MsdInfos)
                 {
