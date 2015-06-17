@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using ArcGisServerDataConnectionsWebsite.Formatters;
+using System.Web.Http;
 
 namespace ArcGisServerDataConnectionsWebsite
 {
@@ -10,6 +11,7 @@ namespace ArcGisServerDataConnectionsWebsite
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            config.Formatters.Add(new FlattenedItemCsvFormatter());
 
             ////config.Routes.MapHttpRoute(
             ////    name: "DefaultApi",
