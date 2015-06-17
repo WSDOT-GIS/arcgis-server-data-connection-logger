@@ -18,19 +18,25 @@
 		return dl;
 	}
 
-	function Connection(data) {
+	function ConnectionInfo(data) {
 		this.connectionString = data.ConnectionString || null;
+		this.workspaceFactory = data.WorkspaceFactory || null;
+	}
+
+	function Connection(data) {
+		this.connectionInfo = new ConnectionInfo(data.ConnectionInfo) || null;
 		this.dataSet = data.DataSet || null;
 		this.layerName = data.LayerName || null;
-		this.workspaceFactory = data.WorkspaceFactory || null;
 	}
 
 	Connection.prototype.toTR = function () {
 		var tr = document.createElement("tr");
 		var cell = tr.insertCell(-1);
-		cell.textContent = this.workspaceFactory;
+		cell.textContent = this.connectionInfo ? this.connectionInfo.workspaceFactory : null;
 		cell = tr.insertCell(-1);
-		cell.appendChild(toDL(this.connectionString));
+		if (this.connectionInfo) {
+			cell.appendChild(toDL(this.connectionInfo.connectionString));
+		}
 		cell = tr.insertCell(-1);
 		cell.textContent = this.dataSet;
 		cell = tr.insertCell(-1);

@@ -103,8 +103,8 @@ namespace ArcGisConnection
                     textWriter.WriteLine("### `{0}` ###", Path.GetFileName(msd.Path));
 
                     var groups = from c in msd.Connections
-                                         where c.WorkspaceFactory == "SDE"
-                                         group c by c.ConnectionString;
+                                         where c.ConnectionInfo.WorkspaceFactory == "SDE"
+                                         group c by c.ConnectionInfo.ConnectionString;
 
 
                     textWriter.WriteLine("#### SDE Connections ####");
@@ -114,7 +114,7 @@ namespace ArcGisConnection
                     {
                         textWriter.WriteLine("##### Connection String #####");
 
-                        var csDict = ConnectionString.GetConnectionStringParts(g.First().ConnectionString.ToString());
+                        var csDict = ConnectionString.GetConnectionStringParts(g.First().ConnectionInfo.ConnectionString.ToString());
 
                         foreach (var kvp in csDict)
                         {
@@ -142,11 +142,15 @@ namespace ArcGisConnection
         /// <returns>Returns an enumeration of <see cref="DataConnectionInfo"/> objects.</returns>
         public static IEnumerable<DataConnectionInfo> GetDatasetInfo(this FileInfo file)
         {
+            // Regex matches file path with a '/' character and ending in ".xml".
             var inFolderRe = new Regex(@"^[^\/]+\/[^\/]+\.xml$");
             using (var fileStream = file.OpenRead())
             using (var zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Read))
             {
-                var xmls = zipArchive.Entries.Where(f => inFolderRe.IsMatch(f.FullName));
+                var xmls = from f in zipArchive.Entries 
+                           where inFolderRe.IsMatch(f.FullName) 
+                           select f;
+
                 foreach (var xml in xmls)
                 {
                     DataConnectionInfo dcInfo = xml.GetDataConnectionInfo(file);

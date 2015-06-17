@@ -13,9 +13,8 @@ namespace DataContracts
         /// <summary>
         /// Connection string
         /// </summary>
-        public ConnectionString ConnectionString { get; set; }
+        public ConnectionInfo ConnectionInfo { get; set; }
         public string DataSet { get; set; }
-        public string WorkspaceFactory { get; set; }
         public string LayerName { get; set; }
 
         /// <summary>
@@ -42,10 +41,15 @@ namespace DataContracts
                 var dsElement = dataConnection.Element("Dataset");
                 var wsElement = dataConnection.Element("WorkspaceFactory");
 
-                this.ConnectionString = csElement != null ? new ConnectionString(csElement.Value) : null;
+                var connectionInfo = csElement != null || wsElement != null ? new ConnectionInfo
+                {
+                    ConnectionString = csElement != null ? new ConnectionString(csElement.Value) : null,
+                    WorkspaceFactory = wsElement != null ? wsElement.Value : null
+                } : null;
+
                 //this.ConnectionString = csElement != null ? csElement.Value : null;
                 this.DataSet = dsElement != null ? dsElement.Value : null;
-                this.WorkspaceFactory = wsElement != null ? wsElement.Value : null;
+                this.ConnectionInfo = connectionInfo;
             }
         }
 
