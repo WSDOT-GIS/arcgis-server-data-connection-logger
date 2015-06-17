@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using DataContracts;
 using System;
 using System.Collections.Generic;
@@ -46,13 +47,6 @@ namespace ArcGisServerDataConnectionsWebsite.Formatters
                     var textWriter = new StreamWriter(writeStream, effectiveEncoding);
                     var csvWriter = new CsvWriter(textWriter);
                     csvWriter.WriteRecords(items);
-
-                    ////using (var textWriter = new StreamWriter(writeStream, effectiveEncoding))
-                    ////using (var csvWriter = new CsvWriter(textWriter))
-                    ////{
-                    ////    csvWriter.WriteRecords(items);
-                    ////}
-
                 });
 
             }

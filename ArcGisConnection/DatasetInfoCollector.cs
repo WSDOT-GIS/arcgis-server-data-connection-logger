@@ -187,7 +187,7 @@ namespace ArcGisConnection
         public static DataConnectionInfo GetDataConnectionInfo(this ZipArchiveEntry xmlEntry, FileInfo fileInfo)
         {
             DataConnectionInfo dcInfo = null;
-            using (var xStream = xmlEntry.Open())
+            var xStream = xmlEntry.Open();
             using (var xReader = XmlReader.Create(xStream))
             {
                 var xDoc = XDocument.Load(xReader);
