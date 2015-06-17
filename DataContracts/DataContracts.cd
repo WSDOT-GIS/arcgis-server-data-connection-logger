@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="DataContracts.ConnectionInfo" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="CompareTo" Hidden="true" />
+      <Method Name="ConnectionInfo" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAgACAAAAAAAAAAIAAACAAAAAAAAA=</HashCode>
+      <FileName>ConnectionInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ConnectionString" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataContracts.ConnectionString" BaseTypeListCollapsed="true">
+    <Position X="1" Y="0.5" Width="2.5" />
+    <Members>
+      <Field Name="_originalString" Hidden="true" />
+      <Method Name="CompareTo" Hidden="true" />
+      <Method Name="ConnectionString" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetConnectionStringParts" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="operator !=" Hidden="true" />
+      <Method Name="operator ==" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAABAAAAAEAAAAQMgAAAAAAAMAAIAIAASAAAAgAAAiA=</HashCode>
+      <FileName>ConnectionString.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataContracts.DataConnectionInfo">
+    <Position X="3.75" Y="2.25" Width="1.75" />
+    <Members>
+      <Method Name="DataConnectionInfo" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAAAAAAgAAAAA=</HashCode>
+      <FileName>DataConnectionInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ConnectionInfo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DataContracts.MsdInfo">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <AssociationLine Name="Connections" Type="DataContracts.DataConnectionInfo">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.118" Y="0.46" Height="0.182" Width="3.167" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>MsdInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Connections" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DataContracts.ServerInfo">
+    <Position X="1" Y="5.5" Width="1.5" />
+    <AssociationLine Name="MsdInfos" Type="DataContracts.MsdInfo">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.365" Y="0.752" Height="0.182" Width="2.327" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ServerInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="MsdInfos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
