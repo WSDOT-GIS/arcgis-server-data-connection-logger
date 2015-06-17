@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataContracts
 {
     [DataContract]
-    public class ConnectionString
+    public class ConnectionString: IComparable, IComparable<ConnectionString>
     {
         [DataMember(IsRequired=false, EmitDefaultValue=false)]
         public string Server { get; set; }
@@ -163,5 +163,45 @@ namespace DataContracts
         }
 
 
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) {
+                return 1;
+            }
+            else if (typeof(ConnectionString).IsInstanceOfType(obj))
+            {
+                var other = (ConnectionString)obj;
+                return this.CompareTo(other);
+
+            }
+            else if (typeof(IComparable).IsInstanceOfType(obj))
+            {
+                return ((IComparable)obj).CompareTo(this);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        public int CompareTo(ConnectionString other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            int output = 0;
+            output += string.Compare(this.Server, other.Server);
+            output += string.Compare(this.Instance, other.Instance);
+            output += string.Compare(this.Database, other.Database);
+            output += string.Compare(this.Version, other.Version);
+            output += string.Compare(this.AuthenticationMode, other.AuthenticationMode);
+            output += string.Compare(this.DBClient, other.DBClient);
+            output += string.Compare(this.ServerInstance, other.ServerInstance);
+            output += string.Compare(this.User, other.User);
+            output += string.Compare(this.DBConnectionProperties, other.DBConnectionProperties);
+            return output;
+        }
     }
 }

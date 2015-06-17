@@ -52,19 +52,5 @@ namespace DataContracts
                 this.ConnectionInfo = connectionInfo;
             }
         }
-
-        /////// <summary>
-        /////// Splits the parts of a connection string into a <see cref="Dictionary&lt;K,V&gt;"/>
-        /////// </summary>
-        /////// <returns>A dictionary of connection string parameters, or null if there is no <see cref="DataConnectionInfo.ConnectionString"/>.</returns>
-        ////public Dictionary<string, string> GetConnectionStringParts()
-        ////{
-        ////    Dictionary<string, string> output = null;
-        ////    if (!string.IsNullOrWhiteSpace(ConnectionString)) {
-        ////        output = ConnectionString.Split(';').Select(s => s.Split('=')).ToDictionary(k => k.ElementAt(0), v => v.ElementAt(1));
-        ////    }
-
-        ////    return output;
-        ////}
     }
 }

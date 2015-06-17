@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -8,7 +9,7 @@ namespace DataContracts
     /// <summary>
     /// Represents a data connection.
     /// </summary>
-    public class ConnectionInfo
+    public class ConnectionInfo: IComparable, IComparable<ConnectionInfo>
     {
         /// <summary>
         /// Connection string
@@ -48,6 +49,49 @@ namespace DataContracts
         public override int GetHashCode()
         {
             return (this.WorkspaceFactory != null ? this.WorkspaceFactory.GetHashCode() : 0) ^ (this.ConnectionString != null ? this.ConnectionString.GetHashCode() : 0);
+        }
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int CompareTo(ConnectionInfo other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            int output = 0;
+            
+            if (this.ConnectionString != null && other.ConnectionString != null)
+            {
+                output += this.ConnectionString.CompareTo(other.ConnectionString);
+            }
+            else if (this.ConnectionString == null)
+            {
+                output -= 1;
+            }
+            else
+            {
+                output += 1;
+            }
+
+            if (this.WorkspaceFactory != null && other.ConnectionString != null)
+            {
+                output += string.Compare(this.WorkspaceFactory, other.WorkspaceFactory);
+            }
+            else if (this.WorkspaceFactory == null)
+            {
+                output -= 1;
+            }
+            else
+            {
+                output += 1;
+            }
+
+            return output;
         }
     }
 }
