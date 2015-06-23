@@ -11,6 +11,10 @@ namespace ArcGisServerDataConnectionsWebsite.Controllers
 {
     public class ConnectionsController : ApiController
     {
+        /// <summary>
+        /// Lists servers, map services, and associated data connections.
+        /// </summary>
+        /// <returns>An enumeration of <see cref="ServerInfo"/>.</returns>
         [Route("api/connections")]
         [CacheOutput(ServerTimeSpan=24*60*60)]
         public IEnumerable<ServerInfo> GetConnections()
