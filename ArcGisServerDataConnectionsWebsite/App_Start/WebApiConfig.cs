@@ -1,4 +1,6 @@
 ﻿using ArcGisServerDataConnectionsWebsite.Formatters;
+using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
+using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using System.Web.Http;
 
 namespace ArcGisServerDataConnectionsWebsite
@@ -12,6 +14,7 @@ namespace ArcGisServerDataConnectionsWebsite
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.Formatters.Add(new FlattenedItemCsvFormatter());
+            GlobalConfiguration.Configuration.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
 
             ////config.Routes.MapHttpRoute(
             ////    name: "DefaultApi",
