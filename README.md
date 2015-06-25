@@ -3,6 +3,35 @@ Listing datasets used by ArcGIS Server
 
 This project provides utilities (written in C#) for creating a list of datasets currently in use by ArcGIS Server.
 
+Website
+-------
+
+This project provides WebAPI REST endpoints for accessing the ArcGIS Server connection data.
+
+## /api/connections ##
+
+This endpoint returns connection data grouped by...
+
+* ArcGIS server
+    * Map Service Definition (MSD)
+        * Connection
+            * Dataset (e.g., Feature Class, Table)
+
+### Supported output formats ###
+
+* `application/json`
+* `text/xml`
+
+## /api/flattened ##
+
+This returns all of the connection data in a flattened format, in a tabular data format.
+
+## Supported output formats ##
+
+* `application/json`
+* `text/xml`
+* `text/csv`
+
 GetArcGisConnections application
 --------------------------------
 
