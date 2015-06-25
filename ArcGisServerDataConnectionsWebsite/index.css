@@ -12,7 +12,7 @@ tbody:empty:after {
     font-style: italic;
 }
 
-section > :only-child:after {
+#loadeddata section > :only-child:after {
     content: ' (No MSDs found)';
     text-align: center;
 }
