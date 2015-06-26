@@ -103,6 +103,7 @@
     <Content Include="index.css" />
     <Content Include="index.html" />
     <Content Include="index.js" />
+    <Content Include="Script\ServerInfo.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
