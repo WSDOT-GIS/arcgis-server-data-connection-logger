@@ -1,10 +1,10 @@
 ﻿#pragma warning disable 1591
-using ArcGisServerDataConnectionsWebsite.Formatters;
+using Wsdot.ArcGis.Server.Reporting.Formatters;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using System.Web.Http;
 
-namespace ArcGisServerDataConnectionsWebsite
+namespace Wsdot.ArcGis.Server.Reporting
 {
     public static class WebApiConfig
     {

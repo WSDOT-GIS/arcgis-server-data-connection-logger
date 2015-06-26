@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace DataContracts
+namespace Wsdot.ArcGis.Server.Reporting.DataContracts
 {
     /// <summary>
     /// Represents a data connection.

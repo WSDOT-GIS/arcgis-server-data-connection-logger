@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace DataContracts
+namespace Wsdot.ArcGis.Server.Reporting.DataContracts
 {
     /// <summary>
     /// Represents a database connection string.

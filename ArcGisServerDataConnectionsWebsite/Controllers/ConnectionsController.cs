@@ -1,5 +1,4 @@
-﻿using ArcGisConnection;
-using DataContracts;
+﻿using Wsdot.ArcGis.Server.Reporting;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,8 +9,9 @@ using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Web.Http;
 using WebApi.OutputCache.V2;
+using Wsdot.ArcGis.Server.Reporting.DataContracts;
 
-namespace ArcGisServerDataConnectionsWebsite.Controllers
+namespace Wsdot.ArcGis.Server.Reporting.Controllers
 {
     /// <summary>
     /// Controller for returning ArcGIS Server map service connection information.

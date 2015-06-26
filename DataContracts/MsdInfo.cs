@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataContracts
+namespace Wsdot.ArcGis.Server.Reporting.DataContracts
 {
     /// <summary>
     /// Information about a Map Service Definition (MSD) file.

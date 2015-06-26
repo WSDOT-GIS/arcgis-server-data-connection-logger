@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
-using DataContracts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,8 +11,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Wsdot.ArcGis.Server.Reporting.DataContracts;
 
-namespace ArcGisServerDataConnectionsWebsite.Formatters
+namespace Wsdot.ArcGis.Server.Reporting.Formatters
 {
     /// <summary>
     /// Writes <see cref="FlattenedItem"/> <see cref="IEnumerable&lt;T&gt;"/> as CSV.

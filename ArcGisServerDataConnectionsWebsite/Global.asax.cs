@@ -1,7 +1,7 @@
 ﻿#pragma warning disable 1591
 using System.Web.Http;
 
-namespace ArcGisServerDataConnectionsWebsite
+namespace Wsdot.ArcGis.Server.Reporting
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

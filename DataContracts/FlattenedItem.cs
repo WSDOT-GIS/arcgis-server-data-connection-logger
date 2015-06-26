@@ -1,5 +1,5 @@
 ﻿
-namespace DataContracts
+namespace Wsdot.ArcGis.Server.Reporting.DataContracts
 {
     /// <summary>
     /// Represents a map service layer in a flattened form, suitable for tabular output.

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="ArcGisServerDataConnectionsWebsite.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Wsdot.ArcGis.Server.Reporting.WebApiApplication" Language="C#" %>

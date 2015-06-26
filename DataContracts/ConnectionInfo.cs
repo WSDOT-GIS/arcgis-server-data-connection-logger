@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataContracts
+namespace Wsdot.ArcGis.Server.Reporting.DataContracts
 {
     /// <summary>
     /// Represents a data connection.

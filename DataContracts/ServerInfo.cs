@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataContracts
+namespace Wsdot.ArcGis.Server.Reporting.DataContracts
 {
     /// <summary>
     /// Contains info about an ArcGIS Server.

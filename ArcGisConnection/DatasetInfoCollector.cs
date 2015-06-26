@@ -1,5 +1,4 @@
-﻿using DataContracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -7,8 +6,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using Wsdot.ArcGis.Server.Reporting.DataContracts;
 
-namespace ArcGisConnection
+namespace Wsdot.ArcGis.Server.Reporting
 {
     /// <summary>
     /// Static class that provides functions for gathering information about datasets in use by ArcGIS Server.
