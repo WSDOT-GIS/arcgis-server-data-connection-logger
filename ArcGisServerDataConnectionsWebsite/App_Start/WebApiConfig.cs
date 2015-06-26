@@ -1,8 +1,8 @@
 ﻿#pragma warning disable 1591
-using Wsdot.ArcGis.Server.Reporting.Formatters;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using System.Web.Http;
+using Wsdot.ArcGis.Server.Reporting.Formatters;
 
 namespace Wsdot.ArcGis.Server.Reporting
 {
@@ -15,7 +15,7 @@ namespace Wsdot.ArcGis.Server.Reporting
             // Web API routes
             config.MapHttpAttributeRoutes();
             // Add CSV output for FlattenedItem enumerations.
-            config.Formatters.Add(new FlattenedItemCsvFormatter());
+            config.Formatters.Insert(0, new FlattenedItemCsvFormatter());
             // Add ability to compress output.
             GlobalConfiguration.Configuration.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
 

@@ -1,12 +1,10 @@
-﻿using Wsdot.ArcGis.Server.Reporting;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Mime;
+using System.Threading.Tasks;
 using System.Web.Http;
 using WebApi.OutputCache.V2;
 using Wsdot.ArcGis.Server.Reporting.DataContracts;
@@ -41,29 +39,16 @@ namespace Wsdot.ArcGis.Server.Reporting.Controllers
         /// <returns>A table of information about ArcGIS Server map services.</returns>
         [Route("api/flattened")]
         [CacheOutput(ServerTimeSpan = 24 * 60 * 60)]
-        public HttpResponseMessage GetFlattenedMsdData()
+        public async Task<IEnumerable<FlattenedItem>> GetFlattenedMsdData()
         {
-            var dirListString = ConfigurationManager.AppSettings["directories"];
-            var dirs = from s in dirListString.Split(';') 
-                       select new DirectoryInfo(s);
-            var output = dirs.GetFlattenedOutput();
-
-            var responseContent = new ObjectContent<IEnumerable<FlattenedItem>>(output, new Formatters.FlattenedItemCsvFormatter(), "text/csv");
-
-
-            var response = new HttpResponseMessage() {
-                Content = responseContent,
-            };
-
-            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            return await Task.Run(() =>
             {
-                FileName="MapServiceData.csv"
-            };
-
-            
-
-
-            return response;
+                var dirListString = ConfigurationManager.AppSettings["directories"];
+                var dirs = from s in dirListString.Split(';')
+                           select new DirectoryInfo(s);
+                var output = dirs.GetFlattenedOutput();
+                return output;
+            });
         }
     }
 }
