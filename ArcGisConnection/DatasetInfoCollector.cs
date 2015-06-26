@@ -78,8 +78,8 @@ namespace ArcGisConnection
         /// <summary>
         /// Enumerates through Map Service Definition (MSD) files' connection information.
         /// </summary>
-        /// <param name="rootDir">
-        /// The directory containing MSD files. 
+        /// <param name="rootDirs">
+        /// Directories containing MSD files.
         /// <example>C:\arcgisserver\directories\arcgissystem\arcgisinput</example>
         /// <example>\\myserver\sharename$\arcgisserver\directories\arcgissystem\arcgisinput</example>
         /// </param>
@@ -170,7 +170,7 @@ namespace ArcGisConnection
 
                 foreach (var xml in xmls)
                 {
-                    DataConnectionInfo dcInfo = xml.GetDataConnectionInfo(file);
+                    DataConnectionInfo dcInfo = xml.GetDataConnectionInfo();
                     if (dcInfo != null && !string.IsNullOrWhiteSpace(dcInfo.DataSet))
                     {
                         yield return dcInfo;
@@ -184,7 +184,7 @@ namespace ArcGisConnection
         /// </summary>
         /// <param name="xmlEntry">XML file zip entry from an MSD file.</param>
         /// <returns>Returns a <see cref="DataConnectionInfo"/></returns>
-        public static DataConnectionInfo GetDataConnectionInfo(this ZipArchiveEntry xmlEntry, FileInfo fileInfo)
+        public static DataConnectionInfo GetDataConnectionInfo(this ZipArchiveEntry xmlEntry)
         {
             DataConnectionInfo dcInfo = null;
             var xStream = xmlEntry.Open();

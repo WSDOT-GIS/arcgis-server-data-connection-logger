@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿#pragma warning disable 1591
+using System.Web.Http;
 
 namespace ArcGisServerDataConnectionsWebsite
 {
@@ -10,3 +11,5 @@ namespace ArcGisServerDataConnectionsWebsite
         }
     }
 }
+
+#pragma warning restore 1591

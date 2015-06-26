@@ -32,6 +32,11 @@ namespace DataContracts
 
         }
 
+        /// <summary>
+        /// Determines if this object is equal to another.
+        /// </summary>
+        /// <param name="obj">Another object.</param>
+        /// <returns>Returns <see langword="true"/> if they are equal, <see langword="false"/> otherwise.</returns>
         public override bool Equals(object obj)
         {
             if (obj != null && typeof(ConnectionInfo).IsInstanceOfType(obj))
@@ -42,11 +47,20 @@ namespace DataContracts
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Gets a hash code for this object.
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return (this.WorkspaceFactory != null ? this.WorkspaceFactory.GetHashCode() : 0) ^ (this.ConnectionString != null ? this.ConnectionString.GetHashCode() : 0);
         }
 
+        /// <summary>
+        /// Compares this <see cref="ConnectionInfo"/> to another object.
+        /// </summary>
+        /// <param name="obj">An object.</param>
+        /// <returns>Returns an integer for sorting.</returns>
         public int CompareTo(object obj)
         {
             if (typeof(ConnectionInfo).IsInstanceOfType(obj))
@@ -65,6 +79,11 @@ namespace DataContracts
             }
         }
 
+        /// <summary>
+        /// Compares this <see cref="ConnectionInfo"/> to another.
+        /// </summary>
+        /// <param name="other">A <see cref="ConnectionInfo"/></param>
+        /// <returns>An integer for sorting.</returns>
         public int CompareTo(ConnectionInfo other)
         {
             if (other == null)

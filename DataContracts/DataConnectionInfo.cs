@@ -14,7 +14,13 @@ namespace DataContracts
         /// Connection string
         /// </summary>
         public ConnectionInfo ConnectionInfo { get; set; }
+        /// <summary>
+        /// Dataset that is the source for the map service layer.
+        /// </summary>
         public string DataSet { get; set; }
+        /// <summary>
+        /// Name of the map service layer.
+        /// </summary>
         public string LayerName { get; set; }
 
         /// <summary>
@@ -53,6 +59,11 @@ namespace DataContracts
             }
         }
 
+        /// <summary>
+        /// Compares the <see cref="DataConnectionInfo"/> to another <see cref="object"/>.
+        /// </summary>
+        /// <param name="obj">An object.</param>
+        /// <returns><see cref="IComparable.CompareTo(object)"/></returns>
         public int CompareTo(object obj)
         {
             if (obj == null)
@@ -79,6 +90,11 @@ namespace DataContracts
             }
         }
 
+        /// <summary>
+        /// Compares the current <see cref="DataConnectionInfo"/> with another <see cref="DataConnectionInfo"/>.
+        /// </summary>
+        /// <param name="other">Another <see cref="DataConnectionInfo"/></param>
+        /// <returns>0 if they are equal, 1 if this one's greater, -1 if the other's greater.</returns>
         public int CompareTo(DataConnectionInfo other)
         {
             int output = 0;
@@ -115,11 +131,21 @@ namespace DataContracts
             return output;
         }
 
+        /// <summary>
+        /// Determines if this <see cref="DataConnectionInfo"/> is equal to another.
+        /// </summary>
+        /// <param name="other">Another <see cref="DataConnectionInfo"/></param>
+        /// <returns>Returns <see langword="true"/> if they are equal, <see langword="false"/> otherwise.</returns>
         public bool Equals(DataConnectionInfo other)
         {
             return this.CompareTo(other) == 0;
         }
 
+        /// <summary>
+        /// Determines if this <see cref="DataConnectionInfo"/> is equal to another <see cref="object"/>.
+        /// </summary>
+        /// <param name="obj">Another object</param>
+        /// <returns>Returns <see langword="true"/> if they are equal, <see langword="false"/> otherwise.</returns>
         public override bool Equals(object obj)
         {
             if (obj != null && typeof(DataConnectionInfo).IsAssignableFrom(obj.GetType())) {
@@ -128,6 +154,10 @@ namespace DataContracts
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Gets a hash code for this object.
+        /// </summary>
+        /// <returns>An integer.</returns>
         public override int GetHashCode()
         {
             return (this.ConnectionInfo != null ? this.ConnectionInfo.GetHashCode() : 0)
@@ -135,6 +165,12 @@ namespace DataContracts
                 ^ (this.LayerName != null ? this.LayerName.GetHashCode() : 0);
         }
 
+        /// <summary>
+        /// Determines if two <see cref="DataConnectionInfo"/> values are equivalent.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>Returns <see langword="true"/> if they are equal, <see langword="false"/> otherwise.</returns>
         public static bool operator == (DataConnectionInfo a, DataConnectionInfo b) 
         {
             bool aIsNull = object.Equals(a, null), bIsNull = object.Equals(b, null);
@@ -152,6 +188,13 @@ namespace DataContracts
             }
         }
 
+
+        /// <summary>
+        /// Determines if two <see cref="DataConnectionInfo"/> values are not equivalent.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns>Returns <see langword="false"/> if they are equal, <see langword="true"/> otherwise.</returns>
         public static bool operator !=(DataConnectionInfo a, DataConnectionInfo b)
         {
             return !(a == b);

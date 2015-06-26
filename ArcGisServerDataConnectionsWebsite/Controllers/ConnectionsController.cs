@@ -13,6 +13,9 @@ using WebApi.OutputCache.V2;
 
 namespace ArcGisServerDataConnectionsWebsite.Controllers
 {
+    /// <summary>
+    /// Controller for returning ArcGIS Server map service connection information.
+    /// </summary>
     public class ConnectionsController : ApiController
     {
         /// <summary>
@@ -32,6 +35,10 @@ namespace ArcGisServerDataConnectionsWebsite.Controllers
             return output;
         }
 
+        /// <summary>
+        /// Returns information about map services on ArcGIS Servers in a flattened, tabular data format.
+        /// </summary>
+        /// <returns>A table of information about ArcGIS Server map services.</returns>
         [Route("api/flattened")]
         [CacheOutput(ServerTimeSpan = 24 * 60 * 60)]
         public HttpResponseMessage GetFlattenedMsdData()
@@ -41,14 +48,6 @@ namespace ArcGisServerDataConnectionsWebsite.Controllers
                        select new DirectoryInfo(s);
             var output = dirs.GetFlattenedOutput();
 
-            //const string fmt = "MSD_Info_{0:r}.csv";
-            //string filename = string.Format(fmt, DateTimeOffset.Now).Replace(":", "");
-            //var disposition = new ContentDisposition
-            //{
-            //    FileName = filename,
-            //    CreationDate = DateTime.Now, 
-            //    DispositionType = "attachment"
-            //};
             var responseContent = new ObjectContent<IEnumerable<FlattenedItem>>(output, new Formatters.FlattenedItemCsvFormatter(), "text/csv");
 
 

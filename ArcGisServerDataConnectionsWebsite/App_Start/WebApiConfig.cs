@@ -1,4 +1,5 @@
-﻿using ArcGisServerDataConnectionsWebsite.Formatters;
+﻿#pragma warning disable 1591
+using ArcGisServerDataConnectionsWebsite.Formatters;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
 using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
 using System.Web.Http;
@@ -13,7 +14,9 @@ namespace ArcGisServerDataConnectionsWebsite
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            // Add CSV output for FlattenedItem enumerations.
             config.Formatters.Add(new FlattenedItemCsvFormatter());
+            // Add ability to compress output.
             GlobalConfiguration.Configuration.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
 
             ////config.Routes.MapHttpRoute(
@@ -24,3 +27,5 @@ namespace ArcGisServerDataConnectionsWebsite
         }
     }
 }
+
+#pragma warning restore 1591
