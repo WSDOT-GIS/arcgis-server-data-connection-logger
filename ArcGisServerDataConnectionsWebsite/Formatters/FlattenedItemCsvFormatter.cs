@@ -69,6 +69,7 @@ namespace Wsdot.ArcGis.Server.Reporting.Formatters
                     var textWriter = new StreamWriter(writeStream, effectiveEncoding);
                     var csvWriter = new CsvWriter(textWriter);
                     csvWriter.WriteRecords(items);
+                    textWriter.FlushAsync().Wait();
                 });
 
             }

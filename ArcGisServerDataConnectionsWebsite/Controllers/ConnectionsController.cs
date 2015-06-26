@@ -22,15 +22,18 @@ namespace Wsdot.ArcGis.Server.Reporting.Controllers
         /// <returns>An enumeration of <see cref="ServerInfo"/>.</returns>
         [Route("api/connections")]
         [CacheOutput(ServerTimeSpan=24*60*60)]
-        public IEnumerable<ServerInfo> GetConnections()
+        public async Task<IEnumerable<ServerInfo>> GetConnections()
         {
-            var dirListString = ConfigurationManager.AppSettings["directories"];
-            var dirs = from s in dirListString.Split(';') 
-                       select new DirectoryInfo(s);
+            return await Task.Run(() =>
+            {
+                var dirListString = ConfigurationManager.AppSettings["directories"];
+                var dirs = from s in dirListString.Split(';')
+                           select new DirectoryInfo(s);
 
-            var output = dirs.GetServerInfos();
+                var output = dirs.GetServerInfos();
 
-            return output;
+                return output;
+            });
         }
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace Wsdot.ArcGis.Server.Reporting.Controllers
                 var dirListString = ConfigurationManager.AppSettings["directories"];
                 var dirs = from s in dirListString.Split(';')
                            select new DirectoryInfo(s);
-                var output = dirs.GetFlattenedOutput();
+                var output = dirs.GetFlattenedOutput().ToArray();
                 return output;
             });
         }
