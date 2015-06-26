@@ -48,14 +48,19 @@ namespace GetArcGisConnections
                 Console.Error.WriteLine("Usage:\n\n{0}", usage);
                 return;
             }
+            Task.Run(() => {
+                var outputPath = string.Format("output {0:s}.csv", DateTimeOffset.Now).Replace(':', '-');
+                var writer = new StreamWriter(outputPath);
+                using (var csvWriter = new CsvWriter(writer))
+                {
+                    var records = from row in dirs.GetFlattenedOutput()
+                                  orderby row.WorkspaceFactory, row.ConnectionStringInstance, row.DataSet
+                                  select row;
+                    csvWriter.WriteRecords(records);
+                }
+            }).Wait();
 
-            var outputPath = string.Format("output {0:s}.csv", DateTimeOffset.Now).Replace(':', '-');
-            using (var writer = new StreamWriter(outputPath))
-            using (var csvWriter = new CsvWriter(writer))
-            {
-                var records = dirs.GetFlattenedOutput();
-                csvWriter.WriteRecords(records);
-            }
+
         }
     }
 }
