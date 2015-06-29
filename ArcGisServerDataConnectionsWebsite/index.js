@@ -12,7 +12,7 @@
 		}
 	};
 
-	var loadData = function () {
+	var loadData = function (e) {
 		// Remove the button.
 		this.parentElement.removeChild(this);
 
@@ -55,9 +55,12 @@
 
 					docFrag.appendChild(section);
 				});
+				loadedDataSection.appendChild(docFrag);
+			} else {
+				alert("Data load error");
+				console.log("Request error. See console for details", { request: this, event: e });
 			}
 
-			loadedDataSection.appendChild(docFrag);
 
 		};
 		request.send();

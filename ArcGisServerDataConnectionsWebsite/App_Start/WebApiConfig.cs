@@ -18,12 +18,6 @@ namespace Wsdot.ArcGis.Server.Reporting
             config.Formatters.Insert(0, new FlattenedItemCsvFormatter());
             // Add ability to compress output.
             GlobalConfiguration.Configuration.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
-
-            ////config.Routes.MapHttpRoute(
-            ////    name: "DefaultApi",
-            ////    routeTemplate: "api/{controller}/{id}",
-            ////    defaults: new { id = RouteParameter.Optional }
-            ////);
         }
     }
 }
