@@ -120,6 +120,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="FlattenedOutputSchema.json" />
+    <None Include="Properties\PublishProfiles\QA.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
