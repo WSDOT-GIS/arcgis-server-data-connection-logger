@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="DataContracts.ConnectionInfo" BaseTypeListCollapsed="true">
-    <Position X="5.25" Y="0.5" Width="2" />
+  <Class Name="Wsdot.ArcGis.Server.Reporting.DataContracts.ConnectionInfo" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="1.25" Width="2" />
     <Members>
       <Method Name="CompareTo" Hidden="true" />
       <Method Name="ConnectionInfo" Hidden="true" />
@@ -15,10 +15,10 @@
     <ShowAsAssociation>
       <Property Name="ConnectionString" />
     </ShowAsAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DataContracts.ConnectionString" BaseTypeListCollapsed="true">
-    <Position X="1" Y="0.5" Width="2.5" />
+  <Class Name="Wsdot.ArcGis.Server.Reporting.DataContracts.ConnectionString" BaseTypeListCollapsed="true">
+    <Position X="1" Y="1.5" Width="2.5" />
     <Members>
       <Field Name="_originalString" Hidden="true" />
       <Method Name="CompareTo" Hidden="true" />
@@ -34,26 +34,13 @@
       <HashCode>IAABAAAAAEAAAAQMgAAAAAAAMAAIAIAASAAAAgAAAiA=</HashCode>
       <FileName>ConnectionString.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DataContracts.DataConnectionInfo">
-    <Position X="3.75" Y="2.25" Width="1.75" />
-    <Members>
-      <Method Name="DataConnectionInfo" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAAAAAAgAAAAA=</HashCode>
-      <FileName>DataConnectionInfo.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ConnectionInfo" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="DataContracts.MsdInfo">
+  <Class Name="Wsdot.ArcGis.Server.Reporting.DataContracts.MsdInfo">
     <Position X="4" Y="4.5" Width="1.5" />
-    <AssociationLine Name="Connections" Type="DataContracts.DataConnectionInfo">
+    <AssociationLine Name="Connections" Type="Wsdot.ArcGis.Server.Reporting.DataContracts.DataConnectionInfo">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="0.118" Y="0.46" Height="0.182" Width="3.167" />
+        <Position X="-0.457" Y="-0.232" Height="0.182" Width="3.167" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -64,11 +51,11 @@
       <Property Name="Connections" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="DataContracts.ServerInfo">
+  <Class Name="Wsdot.ArcGis.Server.Reporting.DataContracts.ServerInfo">
     <Position X="1" Y="5.5" Width="1.5" />
-    <AssociationLine Name="MsdInfos" Type="DataContracts.MsdInfo">
+    <AssociationLine Name="MsdInfos" Type="Wsdot.ArcGis.Server.Reporting.DataContracts.MsdInfo">
       <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="-0.365" Y="0.752" Height="0.182" Width="2.327" />
+        <Position X="0.752" Y="-0.365" Height="0.182" Width="2.327" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -78,6 +65,25 @@
     <ShowAsCollectionAssociation>
       <Property Name="MsdInfos" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Wsdot.ArcGis.Server.Reporting.DataContracts.DataConnectionInfo">
+    <Position X="7.25" Y="3" Width="3.25" />
+    <Members>
+      <Method Name="CompareTo" Hidden="true" />
+      <Method Name="DataConnectionInfo" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="operator !=" Hidden="true" />
+      <Method Name="operator ==" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAgAAAAAAAAAAAEJAAAAAAAgAAAiA=</HashCode>
+      <FileName>DataConnectionInfo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ConnectionInfo" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
