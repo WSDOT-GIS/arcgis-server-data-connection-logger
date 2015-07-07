@@ -10,7 +10,7 @@ The type of database connection. E.g., SDE, SQL, File GDB.
 
 * *WorkspaceFactoryId* (Integer, PK)
 * WorkspaceFactoryName (String) (or should this just be the primary key?)
-	* `'GDB'`
+	* `'FileGDB'`
 	* `'SDE'`
 	* `'SQL'`
 
