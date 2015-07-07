@@ -49,7 +49,7 @@ Datasets
 
 * DatasetId (Integer, PK)
 * DatasetName (String)
-* Connection
+* ConnectionId (Integer, FK)
  
 MapServiceLayers
 ----------------
@@ -57,7 +57,7 @@ MapServiceLayers
 * LayerId (Integer, PK)
 * LayerName (String)
 * MapServiceId (Integer, FK)
-* DatasetId 
+* DatasetId (Integer, FK)
    
 ArcGisServers
 -------------
