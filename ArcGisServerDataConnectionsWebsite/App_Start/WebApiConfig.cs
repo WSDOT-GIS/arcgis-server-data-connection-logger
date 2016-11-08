@@ -1,6 +1,6 @@
 ﻿#pragma warning disable 1591
-using Microsoft.AspNet.WebApi.MessageHandlers.Compression;
-using Microsoft.AspNet.WebApi.MessageHandlers.Compression.Compressors;
+using Microsoft.AspNet.WebApi.Extensions.Compression.Server;
+using System.Net.Http.Extensions.Compression.Core.Compressors;
 using System.Web.Http;
 using Wsdot.ArcGis.Server.Reporting.Formatters;
 
